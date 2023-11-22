@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  control:
+    container_name: control_n
+    build:
+      context: ./services/control
+      dockerfile: Dockerfile
+    ports:
+      - "22:22"
+    networks:
+      - ansible_net
+    volumes:
+      - type: bind
+        source: ./effective_ansible
+        target: /root/effective_ansible
+    # command: tail -f /dev/null # 終了させないためのコマンド
+  target1:
+    container_name: target1_n
+    build:
+      context: ./services/target
+      dockerfile: Dockerfile
+    networks:
+      - ansible_net
+    # command: tail -f /dev/null # 終了させないためのコマンド
+
+    # volumes:
+
+networks:
+  ansible_net:
