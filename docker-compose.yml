@@ -21,10 +21,15 @@ services:
       context: ./services/target
       dockerfile: Dockerfile
     networks:
-      - ansible_net
+      ansible_net:
+        ipv4_address: 10.254.249.89
     # command: tail -f /dev/null # 終了させないためのコマンド
 
     # volumes:
 
 networks:
   ansible_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.254.249.0/24

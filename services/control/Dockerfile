@@ -33,4 +33,4 @@ RUN ssh-keygen -A
 ## SSHサービス(sshd)を起動
 CMD ["/usr/sbin/sshd", "-D"]
 ## 公開鍵をターゲットノードに登録
-RUN ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub root@target1
+# RUN ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub root@target1
