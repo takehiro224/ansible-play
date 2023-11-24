@@ -1,0 +1,32 @@
+「コントロールノード」と「ターゲットノード」をdockerコンテナで用意する
+
+## 準備
+コントロールノード
+- (venv) Pythonの仮想実行環境を用意する
+- (ansible-core) AnsibleをPythonの仮想実行環境にインストールする
+- (openssh) SSHキーを作成するために「openssh」をインストールする
+- (ssh-keygen) SSHキーを作成する
+- (openssh-clients) SSHキーを渡すために「openssh-clients」をインストールする
+- (openassh-server) sshdを利用するために「openassh-server」をインストールする
+- rootユーザーのパスワードを設定する
+- (sshd_config) sshで接続する際にパスワードを要求する設定にする
+- ホストキーを作成する
+- sshdを起動する /usr/sbin/sshd -D
+- (ssh-copy-id) 作成したsshの公開鍵をターゲットノードに渡す(~/.ssh/authorized_keysに保存される)
+
+ターゲットノード
+- (openassh-server) sshdを利用するために「openassh-server」をインストールする
+- ホストキーを作成する
+- rootユーザーのパスワードを設定する
+- (sshd_config) sshで接続する際にパスワードを要求する設定にする
+- sshdを起動する /usr/sbin/sshd -D
+
+## 実行(インベントリ)
+- コマンド
+ansible -i inventory.ini test_servers -m ansible.builtin.ping
+- コマンド
+ansible -i inventory.ini test_servers -m ansible.builtin.file -a 'path=$HOME/test.txt state=touch mode=0644'
+
+## 実行(インベントリ、プレイブック)
+- playbook
+ansible-playbook -i inventory.ini test_playbook.yml

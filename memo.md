@@ -1,4 +1,10 @@
-PIPを利用する手順
+## 実行手順
+docker compose --file docker-compose.yml up -d
+docker exec -it control_n bash
+ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub root@target1
+
+
+## PIPを利用する手順
 dnf install python3-pip
 pip3 install --upgrade pip
 

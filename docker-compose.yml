@@ -14,7 +14,12 @@ services:
       - type: bind
         source: ./effective_ansible
         target: /root/effective_ansible
+      - type: bind
+        source: ./.ansible.cfg
+        target: /root/.ansible.cfg
     # command: tail -f /dev/null # 終了させないためのコマンド
+    # depends_on:
+    #   - target1
   target1:
     container_name: target1_n
     build:
@@ -22,7 +27,7 @@ services:
       dockerfile: Dockerfile
     networks:
       ansible_net:
-        ipv4_address: 10.254.249.89
+        ipv4_address: 10.254.249.12
     # command: tail -f /dev/null # 終了させないためのコマンド
 
     # volumes:
