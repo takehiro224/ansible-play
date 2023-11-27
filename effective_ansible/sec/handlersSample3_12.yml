@@ -1,0 +1,14 @@
+# httpdの設定ファイルを変更し、変更された際にhttpdを再起動する
+tasks:
+  - name: Config HTTP
+    ansible.builtin.template:
+      src: httpd.conf.j2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+      - Restart HTTP
+
+handlers:
+  - name: Restart HTTP
+    ansible.builtin.service:
+      name: httpd
+      state: restarted

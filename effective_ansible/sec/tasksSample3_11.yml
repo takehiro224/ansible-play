@@ -1,0 +1,10 @@
+tasks:
+  - name: Install Chrony
+    ansible.builtin.dnf:
+      name: chrony
+      state: installed
+
+  - name: Config Chrony
+    ansible.builtin.template:
+      src: chrony.conf.j2
+      dest: /etc/chrony.conf

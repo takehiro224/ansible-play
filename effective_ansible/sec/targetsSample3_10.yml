@@ -1,0 +1,6 @@
+- hosts: "*.ansible.local" # webserver01.ansible.localなどにマッチ
+  gather_facts: true # ターゲットノードの情報取得を行う
+  remote_user: root # 接続ユーザーの指定
+  become: true # 接続ユーザー以外で処理を行う
+  become_user: ansible # ターゲットノードで処理を行うユーザー
+  become_method: su # ターゲットノードで処理を行うコマンドの指定。デフォルトではsudo

@@ -1,0 +1,4 @@
+vars:
+  httpd_version: 2.4
+  warning_text: 'WARNING: Use it by Management User'
+  contents: true
