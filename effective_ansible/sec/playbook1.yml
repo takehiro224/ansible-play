@@ -1,0 +1,15 @@
+---
+- hosts: all
+
+  vars:
+    state: started
+  
+  tasks:
+    - name: Install Chrony
+      ansible.builtin.dnf:
+        name: chrony
+        state: installed
+    - name: Run and Enable Chrony
+      ansible.builtin.service:
+        name: "{{ state }}"
+        enabled: true
