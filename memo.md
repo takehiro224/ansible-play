@@ -1,6 +1,7 @@
 ## 実行手順
 docker compose --file docker-compose.yml up -d
 docker exec -it control_n bash
+docker exec -it target1_n bash
 ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub root@target1
 
 
