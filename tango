@@ -1,9 +1,9 @@
 ansible.cfg(.ansible.cfg): ansibleの設定ファイル
 ## 単語
-コントロールノード: 
-ターゲットノード: 
-インベントリ(inventory.ini): 
-プレイブック(playbook.yml): 
+コントロールノード: 処理の指示を出す
+ターゲットノード: 処理の対象となる
+インベントリ(inventory.ini): ターゲットノードをリストして記載するファイル
+プレイブック(playbook.yml): ターゲットノード側で実行したい処理の流れを記載するファイル
 
 ホスト変数: ターゲットノード固有に適用される変数
 グループ変数: グループ全体に適用される変数。[グループ名:vars]セクションを作成してその下に記載
@@ -29,19 +29,80 @@ Key-Valueで記載し、Keyを「ディレクティブ」と呼ぶ
 ### Targetsセクション
 - hosts:
 ターゲットノードの特定
+プレイの中でターゲットノードの接続に関する必要な情報を定義
+targetsSample3_10.yml
+#### ホストパターン
+hosts: <Host Pattern>
+インベントリで定義したターゲットノードの中からパターンにマッチするホストを選択する
+
 ### Tasksセクション
 tasks:
 処理の定義
+実行したい処理の内容をシーケンスで定義
+tasksSample3_11.yml
+「ansible.builtin.xxx」これがモジュール名
+「ansible.builtin.xxx」の配下に定義するものをアーギュメント
+
 ### Handlersセクション
 handlers:
 実行制御処理
+実行したい処理の内容をシーケンスで定義
+=> 「notify」を指定したタスクが更新された場合のみ実行されるタスク
+notifyディレクティブの値に、実行したいハンドラ名を記載し、Handlersセクションに同様のタスク名を定義することによって実行される
+
 ### Varsセクション
 vars:
 変数の設定
+アーギュメントの動的変更や設定ファイルの再利用など、タスクを効率化するための変数を定義するセクション
+プレイ変数: Varsセクションで定義する変数
+以下の3つのディレクティブを使用できる
+1. vars: keyに変数名、valueに変数値を定義
 
+2. vars_files: 変数を定義した、外部のYAMLファイルを複数読み込むことができる(プレイブックとは別のファイルとして変数情報を管理できる)
+vars_files:
+  - vars/prod_vars.yml
+↓ vars/prod_vars.yml
+httpd_version: 2.4
+password: ansible
+app_contents: true
 
+3. vars_prompt
+変数を対話的にユーザーに問い合わせることができる
+パスワードの埋め込みや、実行環境によって異なる変数を使いたいときなどユーザーに直接値を指定してもらいたいときに利用
+vars_prompt:
+  - name: Passphrase
+    prompt: Please enter your password.
+    private: true
+    confirm: true
 
+## エクストラ変数
+コマンドラインから指定できる変数のこと
+ansible-playbookコマンドに-e(--extra-vars)オプションを付けることによって定義
+他のプレイブック内で定義する変数よりも優先される
+環境によって展開するアプリケーションのバージョンを選択したいときなど、適宜設定を変更したい場合に有用
+ansible-playbook -i inventory.ini playbook.yml -e "version=1.5 user=ansible"
 
+## プレイ変数
+プレイ内で定義される変数
+Varsセクションで指定したvars, vars_files, vars_promptなどが対象
+記載する場所によって名称が異なる
+- タスク変数
+- ロール変数
+- ブロック変数
 
+## インベントリ変数
+インベントリ内で定義する変数
+- ホスト変数: ターゲットノードごとに指定する
+- グループ変数: グループ全体に指定する
+
+## レジスタ変数
+タスクの実行結果の戻り値を格納するための変数
+registerディレクティブを用意する
+
+## ファクト変数
+ターゲットノードのシステム情報が格納されている変数
+タスクを実行する前にファクトと呼ばれるシステム情報を各ターゲットノードから取得し「ansible_facts」という変数名に格納している
+ansible.builtin.setupモジュールを利用することによって事前に調べることが可能
+ansible test_servers -i inventory.ini -m ansible.builtin.setup
 
 

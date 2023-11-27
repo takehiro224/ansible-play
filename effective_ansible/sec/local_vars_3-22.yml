@@ -1,0 +1,3 @@
+- name: Display local HOME environment variable
+  ansible.builtin.debug:
+    msg: "'{{ lookup('ansible.builtin.env', 'HOME') }}' is the local HOME environment variable.""

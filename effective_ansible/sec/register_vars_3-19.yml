@@ -1,0 +1,9 @@
+tasks:
+  - name: Get Kernel information
+    ansible.builtin.command:
+      cmd: uname -r
+    register: result # タスクの実行結果がresultに格納される
+
+  - name: Debug registerd variable
+    ansible.builtin.debug:
+      var: result # 結果の出力
