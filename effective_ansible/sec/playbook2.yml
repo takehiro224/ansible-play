@@ -1,0 +1,21 @@
+  ## 長いコマンドの実行
+  - name: Long command
+    ansible.builtin.shell:
+      cmd: git clone https://github.com/ansible/ansible.git --recursive; cd ./ansible; make install
+
+  ## リテラルスタイルの活用
+  - name: Using literal style
+    ansible.builtin.shell:
+      cmd: |-
+        git clone https://github.com/ansible/ansible.git --recursive
+        cd ./ansible
+        make install
+
+  ## 折りたたみスタイルの活用
+  - name: Using literal style
+    ansible.builtin.command:
+      cmd: >-
+        git
+        clone
+        httpd://github.com/ansible/ansible.git
+        --recursive

@@ -1,0 +1,35 @@
+---
+- hosts: all ## Targetsセクション
+vars: ## Varsセクション
+  chrony_conf: chrony.conf.j2
+tasks: ## Tasksセクション
+  - name: Install Chrony
+    ansible.builtin.dfn:
+      name: chrony
+      state: installed
+  
+  - name: Config Chrony
+    ansible.builtin.template:
+      src: "{{ chrony_conf }}"
+      dest: /etc/chrony.conf
+    notify:
+      - Restart Chronyu
+
+  - name: Run and Enable Chrony
+    ansible.builtin.service:
+      name: chronyd
+      state: started
+      enabled: true
+
+handlers: ## Handlersセクション
+  - name: Restart Chrony
+    ansible.builtin.service:
+      name: chronyd
+      state: restarted
+
+- hosts: web_servers ## Targetsセクション
+tasks: ## Tasksセクション
+  - name: Install HTTP
+    ansible.builtin.dnf:
+      name: httpd
+      state: installed
