@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+    - name: Debug task vars
+      ansible.builtin.debug:
+        var: target_env
+      vars: ## タスク変数の定義
+        target_env: dev
+
+- hosts: all
+  vars: ## プレイ変数の定義
+    target_env: stg
+  tasks:
+    - name: Debug play vars
+      ansible.builtin.debug:
+        var: target_env

@@ -13,7 +13,7 @@ tasks: ## Tasksセクション
       src: "{{ chrony_conf }}"
       dest: /etc/chrony.conf
     notify:
-      - Restart Chronyu
+      - Restart Chrony
 
   - name: Run and Enable Chrony
     ansible.builtin.service:
