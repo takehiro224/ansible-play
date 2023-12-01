@@ -2,8 +2,8 @@
 docker compose --file docker-compose.yml up -d
 docker exec -it control_n bash
 docker exec -it target1_n bash
+### コントロールノード起動後に実行
 ssh-copy-id -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa.pub root@target1
-
 
 ## PIPを利用する手順
 dnf install python3-pip
