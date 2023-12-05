@@ -17,7 +17,7 @@ ansible.cfg(.ansible.cfg): ansibleの設定ファイル
 マッピング: 階層構造を示す(ハッシュ)＊連想配列
 ---から...までがYAMLファイルとして認識される
 
-長いコマンドを表記する際の折り返し構文
+### 長いコマンドを表記する際の折り返し構文
 - リテラルスタイル(Literal Style)
 cmd: |-
 その後の改行は改行になる
@@ -105,4 +105,46 @@ registerディレクティブを用意する
 ansible.builtin.setupモジュールを利用することによって事前に調べることが可能
 ansible test_servers -i inventory.ini -m ansible.builtin.setup
 
+## 変数の参照
+Pythonの「Jinja Templateバージョン2」を利用する
+- {{ ・・・ }}
+変数値の結果を表示するタグ
+
+- {{ %・・・% }}
+変数に対する制御構文を記述するタグ
+
+### マッピングの参照
+変数名(Key)を利用して値にアクセスする
+vars:
+  ens160:
+    ipv4:
+      address: "192.168.101.1"
+{{ ens160.ipv4.address }}
+{{ ens160['ipb4']['address'] }}
+
+### シーケンスの参照
+シーケンス番号を利用して値にアクセスする
+vars:
+  local_users:
+    - 
+      - user02
+      - user03
+    -
+      - user11
+{{ local_users.0.1 }} # user03
+{{ local_users[0][1] }} # user03
+{{ local_users[1] }} # ['user11']
+
+### スカラーの参照
+データ型の文字列や真偽値も変数としてアクセスできる
+vars:
+  title: "Andible Practical Book"
+  title_option: true
+{{ title[0:7] }} # Ansible
+{{ title_option }} # true
+
+## テンプレートの制御構文
+{% if hostvars[host].ansible_host is defined %}
+client_ip = {{ hostvars[host].ansible_host }}
+{% endif %}
 

@@ -1,0 +1,12 @@
+tasks:
+  - name: Install the httpd for web_servers
+    ansible.builtin.dnf:
+      name: httpd
+      state: installed
+    when: host_role == 'web' # 変数host_roleの値がwebの場合に本タスクを実行する
+  
+  - name: Install the mysql for db_servers
+    ansible.builtin.dfn:
+      name: mysql
+      state: installed
+    when: host_role == 'db'
