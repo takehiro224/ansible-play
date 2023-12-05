@@ -1,0 +1,14 @@
+vars:
+  ens160:
+    ipv4:
+      address: "192.168.101.1"
+      broadcast: "192.168.101.255"
+      netmask: "255.255.255.0"
+
+{{ ens160.ipv4.address }}
+## "ens160.ipv4.address": "192.168.101.1"
+
+{{ ens160['ipv4']['address'] }}
+## "ens160.ipv4.address": "192.168.101.1"
+
+{{ ens160['ipv4'] }}
