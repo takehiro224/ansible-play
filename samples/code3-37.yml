@@ -1,0 +1,10 @@
+# ユーザー名とグループ名をループで作成する
+tasks:
+  - name: Add several users
+    ansible.builtin.user:
+      name: "{{ item.name }}"
+      state: present
+      groups: "{{ item.groups }}"
+    loop:
+      - { name: user01, groups: wheel }
+      - { name: user02, groups: admin }

@@ -1,0 +1,5 @@
+tasks:
+  - name: Ignore failure task
+    ansible.builtin.command:
+      cmd: /bin/false
+    ignore_errors: true # 本タスクがエラーでも後続処理を続ける

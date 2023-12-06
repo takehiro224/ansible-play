@@ -1,0 +1,12 @@
+# 基本のループ
+# 一度のタスクでuser01~user03までを全て同じwheelグループで作成している
+tasks:
+  - name: Add several users
+    ansible.builtin.user:
+      name: "{{ item }}" ## ループの値が1つずつ展開される
+      state: present
+      groups: wheel
+    loop:
+      - user01
+      - user02
+      - user03
