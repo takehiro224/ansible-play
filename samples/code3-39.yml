@@ -1,0 +1,17 @@
+tasks:
+  - name: Count databases
+    ansible.builtin.debug:
+      msg: "{{ item }} with index {{ mysql_idx }}"
+    loop:
+      - name: server-a
+        cpu: 2core
+        disks: 5Gb
+        ram: 15Gb
+      - name: server-b
+        cpu: 2core
+        disks: 5Gb
+        ram: 15Gb
+    loop_control:
+      index_var: mysql_idx # サーバーの数だけインデックスが付与される
+      pause: 2 # 繰り返しが2秒おきに実行される
+      label: "{{ item.name }}" # サーバー名でラベルが付与される

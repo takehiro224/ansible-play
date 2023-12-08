@@ -1,0 +1,22 @@
+tasks:
+  - block:
+    - name: Failed task
+      ansible.builtin.command:
+        cmd: /bin/false
+    - name: Not executed task
+      ansible.builtin.debug:
+        msg: '上記のタスクでエラーが発生するため、この処理は実行されません'
+    rescue:
+      - name: Debug message
+        ansible.builtin.debug:
+          msg: 'エラーが発生しました'
+      - name: Failed task
+        ansible.builtin.command:
+          cmd: /bin/false
+      - name: Not executed task
+        ansible.builtin.debug:
+          msg: '上記のタスクでエラーが発生するため、この処理は実行されません'
+    always:
+      - name: Debug message
+        ansible.builtin.debug:
+          msg: 'いつも実行されます'

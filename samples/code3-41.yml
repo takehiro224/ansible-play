@@ -1,0 +1,24 @@
+# タスクのグループ化
+tasks:
+  - block: # ブロックの開始
+    - name: Install repository
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+
+    - name: Install packages
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+    when: ansible_os_family == 'RedHat'
+
+  - block: # ブロックの開始
+    - name: Install repository
+      ansible.builtin.apt_repository:
+        repo: ppa:nginx/stable
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+    when: ansible_os_family == 'Debian'

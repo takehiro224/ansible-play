@@ -1,0 +1,20 @@
+vars:
+  loop_test:
+    - ["test01", "test02"]
+    - "test03"
+
+tasks:
+  - name: Confirmation flatten for with_items
+    ansible.builtin.debug:
+      msg: "{{ item }}"
+    with_items: "{{ loop_test }}" 
+# test01
+# test02
+# test03
+
+  - name: Confirmation flatten for loop
+    ansible.builtin.debug:
+      msg: "{{ item }}"
+    loop: "{{ loop_test }}" 
+# [test01, test02]
+# test03

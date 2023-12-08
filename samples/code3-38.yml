@@ -1,0 +1,10 @@
+# 特殊なループ: 多重のループ利用例
+tasks:
+  - name: Using product filter
+    ansible.builtin.debug:
+      msg: "{{ item[0] }} in {{ item[1] }} group"
+    loop: "{{ user_info[0] | product(user_info[1]) }}" # 組み合わせループ(productフィルタ: シーケンスを組み合わせて多重ループする)
+    vars:
+      user_info:
+        - ['user01', 'user02'] # 組み合わせる1つめのシーケンス
+        - ['admin', 'db'] # 組み合わせる2つめのシーケンス
