@@ -1,0 +1,15 @@
+# Playbookのymlファイルサンプル
+# サマリ部
+- name: Setup nginx server on my list
+  hosts:
+    - devservers
+  become: True
+# タスク部
+  tasks:
+    - name: Install the latest version of nginx
+      command: amazon-linux-extras install nginx1 -y
+
+    - name: Start nginx service
+      service:
+        name: nginx
+        state: started

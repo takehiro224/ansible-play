@@ -1,0 +1,16 @@
+# Playbookのymlファイルサンプル
+- name: Setup nginx server on my list
+  become: True
+  tasks:
+    - name: Ansible copy file to remote server
+      copy:
+        content: |
+          <html>
+          <body>
+          <h1>Yamlサンプル</h1>
+          </body>
+          </html>
+        dest: "/usr/share/nginx/html/index.html"
+
+    - name: Run a script
+      script: "#!bin/bash \ncp index.html /html/"

@@ -1,0 +1,6 @@
+- name: Install the latest version of nginx
+      command: amazon-linux-extras install nginx1 -y
+    - name: Start nginx service
+      service:
+        name: nginx
+        state: started

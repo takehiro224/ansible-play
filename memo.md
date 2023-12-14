@@ -17,10 +17,10 @@ pip3 install --upgrade pip
 - 用途に応じてPython環境を切り替えるツール
 - 複数バージョンを切り替えるものではなく、同一バージョンでの切り替えるためのツール
 
-venvの利用
+##### venvの利用(仮想環境の構築)
 python -m venv [環境名]
 
-pipを利用したAnsibleのインストール
+- pipを利用したAnsibleのインストール
 python3.9 -m venv venv
 source venv/bin/activate シェルスクリプトや設定ファイルなどを読み込んで現在のシェル環境に反映させる
 [Dockerfile]pip install --upgrade pip

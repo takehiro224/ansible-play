@@ -1,0 +1,6 @@
+- name: Setup web server and db server
+  hosts:
+    - devservers
+  roles:
+    - web_server_role
+    - db_server_role

@@ -13,6 +13,7 @@
 - ホストキーを作成する
 - sshdを起動する /usr/sbin/sshd -D
 - (ssh-copy-id) 作成したsshの公開鍵をターゲットノードに渡す(~/.ssh/authorized_keysに保存される)
+＊ パスワードを聞かれる(root)
 
 ターゲットノード
 - (openassh-server) sshdを利用するために「openassh-server」をインストールする
@@ -29,4 +30,5 @@ ansible -i inventory.ini test_servers -m ansible.builtin.file -a 'path=$HOME/tes
 
 ## 実行(インベントリ、プレイブック)
 - playbook
+cd /root/effective_ansible
 ansible-playbook -i inventory.ini test_playbook.yml
