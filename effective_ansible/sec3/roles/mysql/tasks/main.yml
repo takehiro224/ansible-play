@@ -1,0 +1,11 @@
+---
+- name: Install the mysql packages in RedHat derivatives
+  ansible.builtin.dnf:
+    name: "{{ mysql_pkgs }}"
+    state: installed
+
+- name: Copy the my.cnf file
+  ansible.builtin.template:
+    src: my.cnf.j2
+    dest: "{{ mysql_conf_dir }}"/my.cnf
+  notify: restart mysql

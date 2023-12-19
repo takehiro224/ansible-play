@@ -1,0 +1,15 @@
+---
+galaxy_info:
+  author: Ansible User
+  description: MySQL Role
+  company: Example.com
+  license: GNU General Public License
+  min_ansible_version: "2.9"
+  platforms:
+    - name: EL
+      versions:
+        - "9"
+        - "8"
+dependencies:
+  - {role: common}
+  - {role: nginx, when: "'web_services' in group_names"}

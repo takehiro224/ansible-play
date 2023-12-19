@@ -1,0 +1,6 @@
+o osumi 36
+m miyake 74
+s1 suzuki 59
+s2 sato 12
+i ino 98
+s3 sakurama 41

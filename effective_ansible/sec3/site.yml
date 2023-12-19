@@ -1,0 +1,13 @@
+---
+- name: Common configuration
+  hosts: all
+  become: true
+  roles:
+    - common
+
+- name: Deploy MySQL and Configure the database
+  hosts: db_servers
+  become: true
+  roles:
+    - name: mysql
+      when: ansible_os_family == "RedHat"

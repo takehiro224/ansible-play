@@ -1,0 +1,31 @@
+---
+- name: Install Nginx and deploy a simple webpage
+  hosts: web_servers
+  become: true
+
+  tasks:
+    - name: Update package cache
+      package_facts:
+
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: present
+
+    - name: Copy Nginx configuration file
+      copy:
+        src: files/nginx.conf
+        dest: /etc/nginx/nginx.conf
+      notify:
+        - Reload Nginx
+
+    - name: Copy simple webpage
+      copy:
+        src: files/index.html
+        dest: /usr/share/nginx/html/index.html
+
+  handlers:
+    - name: Reload Nginx
+      systemd:
+        name: nginx
+        state: restarted

@@ -1,0 +1,22 @@
+--- ## Linux構成管理のプレイブック
+- name: Initialize OS setting for Linux Servers
+  hosts: linux_servers
+  become: true
+
+## 初期設定処理を行う各ロールを順に呼び出す
+  tasks:
+    - ansible.builtin.import_role: name=common/hostname
+      tags: hostname
+    - ansible.builtin.import_role: name=common/locale
+      tags: locale
+    - ansible.builtin.import_role: name=common/packages
+      tags: packages
+    - ansible.builtin.import_role: name=common/users
+      tags: users
+
+## 初期設定が終わったら再起動を行う
+  post_tasks:
+    - name: Restart target nodes
+      ansible.builtin.reboot:
+        delay: 5
+        timeout: 60
